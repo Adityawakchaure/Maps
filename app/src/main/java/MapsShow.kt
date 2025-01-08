@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -39,6 +40,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.CameraPositionState
 import com.google.maps.android.compose.GoogleMap
@@ -80,6 +82,12 @@ fun GoogleMapView(
     // Initialize the marker state with an initial position
     val locationState = rememberMarkerState(
         position = LatLng(latitude ?: 0.0, longitude ?: 0.0)
+    )
+    val locationState2 = rememberMarkerState(
+        position = LatLng(20.593684,78.996288)
+    )
+    val locationState3 = rememberMarkerState(
+        position = LatLng(19.075983,72.877655)
     )
 
     LaunchedEffect(latitude, longitude) {
@@ -156,10 +164,23 @@ fun GoogleMapView(
             Marker(
                 state = locationState,
                 draggable = true,
-                onClick = {
-                    false
-                },
+                onClick = { false },
+                icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED),
                 title = "Current Location"
+            )
+            Marker(
+                state = locationState2,
+                draggable = true,
+                onClick = { false },
+                icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE),
+                title = "Nagpur"
+            )
+            Marker(
+                state = locationState3,
+                draggable = true,
+                onClick = { false },
+                icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN),
+                title = "Mumbai"
             )
         }
     }
@@ -190,3 +211,5 @@ private fun startLocationUpdates(
         Looper.getMainLooper()
     )
 }
+
+
